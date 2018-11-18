@@ -1,0 +1,28 @@
+//-----------------------------------------------------------------------------------
+// Update Management
+//
+// Patching pre-analysis query sample - Windows VMs
+//
+// Grabs a listing of 100 servers, organizes the output to highlight needed patches.
+//-----------------------------------------------------------------------------------
+
+Update
+| where TimeGenerated>ago(30d) and OSType!="Linux" and (Optional==false or Classification has "Critical" or Classification has "Security") and SourceComputerId in ((Heartbeat
+| where TimeGenerated>ago(30d) and OSType=~"Windows" and notempty(Computer)
+| summarize arg_max(TimeGenerated, Solutions) by SourceComputerId
+| where Solutions has "updates"
+| distinct SourceComputerId))
+| summarize hint.strategy=partitioned arg_max(TimeGenerated, *) by Computer, SourceComputerId, UpdateID
+| where UpdateState=~"Needed" and Approved!=false
+| project Computer
+, TimeGenerated
+, PublishedDate
+, KBID
+, Product
+, Title
+, UpdateState
+, Optional
+, RebootBehavior
+| take 100
+| sort by Computer asc
+, PublishedDate
