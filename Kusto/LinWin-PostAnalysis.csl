@@ -1,0 +1,14 @@
+UpdateRunProgress
+| where InstallationStatus == 'Succeeded'
+| where TimeGenerated > now(-60d)
+| project Computer
+, SourceComputerId
+, InstallationStatus
+, Product
+, Title
+, KBID
+, UpdateId
+, ErrorResult
+, UpdateRunName
+| take 100
+| sort by Computer asc

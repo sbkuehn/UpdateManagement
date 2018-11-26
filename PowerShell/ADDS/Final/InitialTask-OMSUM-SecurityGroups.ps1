@@ -20,7 +20,7 @@ $servers = Get-ADComputer -Filter * | Select-Object -ExpandProperty Name
 ForEach($server in $servers){
     $path = Test-Path "\\$server\C$\mstar-metadata\base.json" 
         If($path -eq $true){
-        $patchSchedule = Get-Content -Raw -Path "\\$server\c$\localpath\serverbase.json" | ConvertFrom-Json | Select-Object -ExpandProperty patch_schedule
+        $patchSchedule = Get-Content -Raw -Path "\\$server\c$\mstar-metadata\base.json" | ConvertFrom-Json | Select-Object -ExpandProperty patch_schedule
         $SAMAccountName = Get-ADComputer -Identity $server | Select-Object -ExpandProperty SamAccountName
         $patchScheduleName = ""  
         Switch ($patchSchedule){
