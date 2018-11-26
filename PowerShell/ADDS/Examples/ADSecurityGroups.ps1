@@ -1,2 +1,0 @@
-﻿New-ADGroup -Name "Patch Schedule 01" -SamAccountName patchschedule01 -GroupCategory Security -GroupScope Global -DisplayName "Patch Schedule 01" -Path "CN=Users,DC=Fabrikam,DC=Com" -Description "Members of this group are RODC Administrators"
-New-ADGroup -Name "Patch Schedule 01" -SamAccountName patchschedule01 -GroupCategory Security -GroupScope Universal -DisplayName "Patch Schedule 01" -Path "CN=Users,DC=Fabrikam,DC=Com" -Description "Members of this group are RODC Administrators"
