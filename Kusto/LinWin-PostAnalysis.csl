@@ -17,7 +17,7 @@
 //
 // Patching post-analysis query sample - Windows and Linux VMs
 //
-// Grabs a listing of 100 servers, organizes the output to highlight applied patches.
+// Grabs a listing of 100 servers and organizes the output to highlight applied patches.
 //-----------------------------------------------------------------------------------
 
 UpdateRunProgress
