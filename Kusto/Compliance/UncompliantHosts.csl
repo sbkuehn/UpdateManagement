@@ -1,0 +1,3 @@
+Update
+| where UpdateState == "Needed"  and (Classification == "Security Updates" or Classification == "Critical Updates")
+| summarize count() by Computer

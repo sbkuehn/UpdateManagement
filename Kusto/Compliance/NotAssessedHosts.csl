@@ -1,0 +1,33 @@
+Heartbeat
+| where TimeGenerated>ago(12h) and OSType=~"Windows" and notempty(Computer)
+| summarize arg_max(TimeGenerated, Solutions) by SourceComputerId, Computer
+| where Solutions has "updates"
+| distinct SourceComputerId, Computer
+| join  kind=leftouter
+(
+    Update
+    | where TimeGenerated>ago(14h) and OSType!="Linux"
+    | summarize hint.strategy=partitioned arg_max(TimeGenerated, UpdateState, Approved, Optional, Classification) by SourceComputerId, UpdateID, Computer
+    | distinct SourceComputerId, Classification, UpdateState, Approved, Optional, Computer
+    | summarize WorstMissingUpdateSeverity=max(iff(UpdateState=~"Needed" and (Optional==false or Classification has "Critical" or Classification has "Security") and Approved!=false, iff(Classification has "Critical", 4, iff(Classification has "Security", 2, 1)), 0)) by SourceComputerId, Computer
+)
+on SourceComputerId
+| extend WorstMissingUpdateSeverity=coalesce(WorstMissingUpdateSeverity,-1)
+| summarize computersBySeverity=count() by WorstMissingUpdateSeverity , Computer
+| union (Heartbeat
+| where TimeGenerated>ago(12h) and OSType=="Linux" and notempty(Computer)
+| summarize arg_max(TimeGenerated, Solutions) by SourceComputerId, Computer
+| where Solutions has "updates"
+| distinct SourceComputerId , Computer
+| join  kind=leftouter
+(
+    Update
+    | where TimeGenerated>ago(5h) and OSType=="Linux"
+    | summarize hint.strategy=partitioned arg_max(TimeGenerated, UpdateState, Classification) by SourceComputerId, Product, ProductArch, Computer
+    | distinct SourceComputerId, Classification, UpdateState, Computer
+    | summarize WorstMissingUpdateSeverity=max(iff(UpdateState=~"Needed", iff(Classification has "Critical", 4, iff(Classification has "Security", 2, 1)), 0)) by SourceComputerId)
+on SourceComputerId
+| extend WorstMissingUpdateSeverity=coalesce(tolong(WorstMissingUpdateSeverity), -1)
+)
+| where WorstMissingUpdateSeverity ==-1
+| summarize NotAssessedTrue=count(WorstMissingUpdateSeverity) by Computer
