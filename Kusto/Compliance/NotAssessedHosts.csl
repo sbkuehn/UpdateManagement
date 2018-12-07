@@ -19,10 +19,6 @@
 //
 //-----------------------------------------------------------------------------------
 
-
-
-
-
 Heartbeat
 | where TimeGenerated>ago(12h) and OSType=~"Windows" and notempty(Computer)
 | summarize arg_max(TimeGenerated, Solutions) by SourceComputerId, Computer
