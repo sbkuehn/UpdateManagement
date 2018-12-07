@@ -16,7 +16,7 @@
 //
 // Update Management
 //
-// Not Assessed Servers - Lists all servers that have not been able to be assessed via Update Management.
+// Not Assessed Servers - Lists all servers that are not able to be assessed via Update Management.
 //-----------------------------------------------------------------------------------
 
 Heartbeat
