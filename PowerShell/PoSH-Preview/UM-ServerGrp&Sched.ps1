@@ -22,7 +22,7 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 # both data sources and groups servers into variables for patch scheduling.
 
 $scriptBlock = .{
-$serverinfo = Get-Content -Path "C:\Users\skuehn\Documents\servergrouping.csv" | ConvertFrom-Csv
+$serverinfo = Get-Content -Path "C:\temp\servergrouping.csv" | ConvertFrom-Csv
 $query = "Heartbeat | summarize arg_max(TimeGenerated, *) by SourceComputerId | top 500000 by Computer asc"
 $queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId "511b3784-4652-45d3-a744-53a6dc023326" -Query $query
 $queryResults.Results
