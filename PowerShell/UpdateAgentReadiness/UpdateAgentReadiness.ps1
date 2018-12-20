@@ -14,6 +14,7 @@ business information, or other pecuniary loss) arising out of the use of or inab
 documentation, even if Microsoft has been advised of the possibility of such damages.
 #>
 
+# Fill in local path, Azure subscription ID, resource group, and automation account.
 $path = "{local file path}"
 $subId = "{subscription ID}"
 $rg = "{resource group}"
