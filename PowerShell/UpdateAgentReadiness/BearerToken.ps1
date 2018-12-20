@@ -1,4 +1,5 @@
-# Adapted from: https://www.codeisahighway.com/how-to-easily-and-silently-obtain-accesstoken-bearer-from-an-existing-azure-powershell-session/
+# Adapted from: 
+# https://www.codeisahighway.com/how-to-easily-and-silently-obtain-accesstoken-bearer-from-an-existing-azure-powershell-session/
 
 function Get-AzureRmCachedAccessToken()
 {
