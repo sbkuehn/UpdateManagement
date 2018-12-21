@@ -13,8 +13,7 @@
 <br>The update readiness metric solely checks if the patch agent (System HybridWorker) is registered and actively pinging. Each response code (Ready, Disconnected, Not configured) denotes a specific readiness state within the column.
 <br><br>1) <u>Not Configured</u> - the GET call resolves to 404.
 <br>2) <u>Disconnected</u> - The GET call resolves to 200, but the lastSeen property value (related to ping time) is older than an hour ago.
-<br>3) <u>Ready</u> - The GET call resolves to 200 and the lastSeen property is less than an hour ago.
-If the GET call resolves to 200, but lastSeen property value (denotes the ping time) is older than an hour ago – we call it 
+<br>3) <u>Ready</u> - The GET call resolves to 200 and the lastSeen property is less than an hour ago. 
 <br><br><b><u>Kusto Queries - Known Limitations</u>:</b>
 <br>1) CVE Numbers are only listed for Linux within the underlying database engine for Kusto, except not every Linux server contains a CVE Number.
 <br>2) TimeGenerated refers to when the scheduled job started. There is currently no way to capture the time a patch applied. 
