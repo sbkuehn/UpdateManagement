@@ -24,7 +24,7 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 $scriptBlock = .{
 $serverinfo = Get-Content -Path "C:\temp\servergrouping.csv" | ConvertFrom-Csv
 $query = "Heartbeat | summarize arg_max(TimeGenerated, *) by SourceComputerId | top 500000 by Computer asc"
-$queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId "511b3784-4652-45d3-a744-53a6dc023326" -Query $query
+$queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId "{log analytics workspace Id}" -Query $query
 $queryResults.Results
 $servers = $queryResults.Results | Select-Object -ExpandProperty Computer
 }
@@ -52,6 +52,7 @@ ForEach($server in $serverinfo)
 
 # Part 2:
 # Takes variables from groups created and places them into a patch schedule.
+# Time needs to be in POSIX format. Example: 2018-12-31T21:00
 function SetSchedule {
 param(
 [Parameter(Mandatory=$true)]
@@ -71,8 +72,6 @@ param(
 [Parameter(Mandatory=$true)]
 [string]$scheduleName
 )
-
-$startTime = [DateTimeOffset]$startTime
  
 #Group all target machines
 $duration = New-TimeSpan -Hours $durationHours
