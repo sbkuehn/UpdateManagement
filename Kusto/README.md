@@ -10,7 +10,7 @@ Sample Code and Documentation to Assist Deployment and Management of On-Premises
 <b><u>Update Agent Readiness - Explained</b></u>
 <br>In the portal, the Update Agent Readiness column’s data is lazy-loaded. Azure checks readiness of every machine individually using the following REST API: https://docs.microsoft.com/en-us/rest/api/automation/hybridrunbookworkergroup/get
 The readiness metric is solely about checking that the patch agent (System HybridWorker) is registered and actively pinging.
-<br><br>Update Agent Readiness GET Calls
+<br><br><b>Update Agent Readiness - GET Calls</b>
 <br>1) <i>Not Configured</i> - the GET call resolves with 404.
 <br>2) <i>Disconnected</i> - The GET call resolves to 200, but the lastSeen property value, which denotes ping time, is older than an hour ago.
 <br>3) <i>Ready</i> - The GET call resolves to 200 and the lastSeen property is less than an hour ago.
