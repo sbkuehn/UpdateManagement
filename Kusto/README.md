@@ -11,8 +11,8 @@ Sample Code and Documentation to Assist Deployment and Management of On-Premises
 <br>In the portal, the Update Agent Readiness column data is lazy-loaded. Azure checks readiness of every machine individually using this following <a href="https://docs.microsoft.com/en-us/rest/api/automation/hybridrunbookworkergroup/get">REST API</a>. 
 <br><br><b>Update Agent Readiness - GET Calls</b>
 <br>The update readiness metric solely checks if the patch agent (System HybridWorker) is registered and actively pinging. Each response code (Ready, Disconnected, Not configured) denotes a specific readiness state within the column.
-<br>1) <i>Not Configured</i> - the GET call resolves with 404.
-<br>2) <i>Disconnected</i> - The GET call resolves to 200, but the lastSeen property value, which denotes ping time, is older than an hour ago.
+<br>1) <i>Not Configured</i> - the GET call resolves to 404.
+<br>2) <i>Disconnected</i> - The GET call resolves to 200, but the lastSeen property value (related to ping time) is older than an hour ago.
 <br>3) <i>Ready</i> - The GET call resolves to 200 and the lastSeen property is less than an hour ago.
 If the GET call resolves to 200, but lastSeen property value (denotes the ping time) is older than an hour ago – we call it 
 <br><br><b><u>Kusto Queries - Known Limitations</u>:</b>
