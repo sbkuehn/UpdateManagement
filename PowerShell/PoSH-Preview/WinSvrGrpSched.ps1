@@ -73,7 +73,6 @@ param(
 [string]$scheduleName
 )
  
-#Group all target machines
 $duration = New-TimeSpan -Hours $durationHours
 $schedule = New-AzureRmAutomationSchedule -ResourceGroupName $resourceGroup `
                                                       -AutomationAccountName $automationAccount `
