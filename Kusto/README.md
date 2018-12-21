@@ -8,9 +8,9 @@ Sample Code and Documentation to Assist Deployment and Management of On-Premises
 <br><br><b><u>Troubleshooting</u>:</b><br>1) Ensure Azure RM PowerShell module is completely up to date.<br>2) <a href="https://www.youtube.com/watch?v=6fhvYSgQRwg">Troubleshoot Update Agent Readiness: Not Configured</a>
 <br><br>
 <b><u>Update Agent Readiness - Explained</b></u>
-<br>In the portal, the Update Agent Readiness column’s data is lazy-loaded. Azure checks readiness of every machine individually using the following REST API: https://docs.microsoft.com/en-us/rest/api/automation/hybridrunbookworkergroup/get
-The readiness metric is solely about checking that the patch agent (System HybridWorker) is registered and actively pinging.
+<br>In the portal, the Update Agent Readiness column’s data is lazy-loaded. Azure checks readiness of every machine individually using this following <a href="https://docs.microsoft.com/en-us/rest/api/automation/hybridrunbookworkergroup/get">REST API</a>. 
 <br><br><b>Update Agent Readiness - GET Calls</b>
+<br>The update readiness metric solely checks if the patch agent (System HybridWorker) is registered and actively pinging. Each response code (Ready, Disconnected, Not configured) denotes a specific readiness state within the column.
 <br>1) <i>Not Configured</i> - the GET call resolves with 404.
 <br>2) <i>Disconnected</i> - The GET call resolves to 200, but the lastSeen property value, which denotes ping time, is older than an hour ago.
 <br>3) <i>Ready</i> - The GET call resolves to 200 and the lastSeen property is less than an hour ago.
