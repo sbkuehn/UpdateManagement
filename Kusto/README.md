@@ -1,6 +1,6 @@
 # Update Management
 
-Sample Code and Documentation to Assist Deployment and Management of On-Premises Servers
+<i>Sample Code and Documentation to Assist Deployment and Management of On-Premises Servers</i>
 
 <b><u>Microsoft Documentation</u>:</b>
 <br><a href="https://docs.microsoft.com/en-us/powershell/module/azurerm.automation/new-azurermautomationschedule?view=azurermps-6.13.0">Azure Rm Automation Schedule</a>
