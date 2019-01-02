@@ -25,6 +25,7 @@ UpdateRunProgress
 | where InstallationStatus == 'Succeeded'
 | where TimeGenerated > now(-60d)
 | project Computer
+, TimeGenerated 
 , SourceComputerId
 , InstallationStatus
 , Product
