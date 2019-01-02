@@ -14,6 +14,6 @@
 <br><br>1) <u>Not Configured</u> - the GET call resolves to 404.
 <br>2) <u>Disconnected</u> - The GET call resolves to 200, but the lastSeen property value (related to ping time) is older than an hour ago.
 <br>3) <u>Ready</u> - The GET call resolves to 200 and the lastSeen property is less than an hour ago. 
-<br><br><b><u>Kusto Queries - Known Limitations</u>:</b>
+<br><br><b><u>Kusto Queries - Detailed Explanations</u>:</b>
 <br>1) CVE Numbers are only listed for Linux within the underlying database engine for Kusto, except not every Linux server patch contains a CVE Number.
 <br>2) TimeGenerated refers to when the patch applies.
