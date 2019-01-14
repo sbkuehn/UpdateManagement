@@ -38,6 +38,5 @@ Update
 , UpdateState
 , Optional
 , RebootBehavior
-| take 100
 | sort by Computer asc
 , PublishedDate
