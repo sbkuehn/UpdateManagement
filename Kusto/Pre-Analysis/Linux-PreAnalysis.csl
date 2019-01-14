@@ -29,6 +29,7 @@ Update
 | distinct SourceComputerId))
 | summarize hint.strategy=partitioned arg_max(TimeGenerated, *) by Computer, SourceComputerId, Product, ProductArch
 | where UpdateState=~"Needed"
+| where Classification=~"Critical Updates"
 | project Computer
 , TimeGenerated
 , Product
@@ -38,6 +39,5 @@ Update
 , PackageRepository
 , OSName
 , OSVersion
-| take 100
 | sort by Computer asc
 , Product asc 
