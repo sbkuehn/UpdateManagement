@@ -1,0 +1,7 @@
+UpdateRunProgress
+| where InstallationStatus == 'Succeeded'
+| where TimeGenerated > now(-30d)
+| distinct Computer
+, Title
+| summarize count(Title) by Computer
+| sort by Computer asc
