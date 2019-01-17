@@ -21,7 +21,9 @@
 // Grabs a listing of 100 servers and organizes the output to highlight applied patches.
 //-----------------------------------------------------------------------------------
 
+let group1 = dynamic (['hostname1','hostname2','hostname3','hostname4','hostname5','hostname6','hostname7','hostname8']);
 UpdateRunProgress
+| where Computer in (group1)
 | where InstallationStatus == 'Succeeded'
 | where TimeGenerated > now(-60d)
 | project Computer
