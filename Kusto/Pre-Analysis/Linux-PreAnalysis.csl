@@ -18,7 +18,7 @@
 //
 // Patching pre-analysis query sample - Linux VMs
 //
-// Grabs a listing of 100 servers and organizes the output to highlight needed patches.
+// Grabs patch details for patch group and builds a pre-analysis report for regulatory compliance.
 //-----------------------------------------------------------------------------------
 
 let group1 = dynamic (['hostname1','hostname2','hostname3','hostname4','hostname5','hostname6','hostname7','hostname8']);
