@@ -35,5 +35,4 @@ UpdateRunProgress
 , UpdateId
 , ErrorResult
 , UpdateRunName
-| take 100
 | sort by Computer asc
