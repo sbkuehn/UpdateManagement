@@ -22,10 +22,9 @@
 <br>2) If WSUS is involved with the deployment, Windows looks to WSUS as the control plane with excluded and included patches.
 <br>3) Standalone WSUS works well, even if there is a substantial amount of Windows machines.
 <br>4) Pay attention to the total number of nodes if using an OMS Gateway. If servers cannot be assessed in the portal underneath Update Management and telneting to the OMS Gateway over appropriate ports (default is 8081) picked for deployment does not work, plan to build out another OMS Gateway and use a load balancer. The easiest way to course correct is to assign a new static IP address to the first OMS Gateway, assign a new static IP address to the second OMS Gateway, and use the static IP of the first OMS Gateway as your VIP on the load balancer. You will not need to adjust the deployment on all servers' MMA configurations this way.
-
 <br><br><b><u>Troubleshooting MMA Agent</u>:</b>
-<a href="https://docs.microsoft.com/en-us/azure/automation/troubleshoot/update-agent-issues">Windows Troubleshooting</a> 
-<a href="https://docs.microsoft.com/en-us/azure/automation/troubleshoot/update-agent-issues-linux">Linux Troubleshooting</a> 
-<a href="https://docs.microsoft.com/en-us/azure/automation/troubleshoot/hybrid-runbook-worker">Troubleshoot Hybrid Runbook Worker</a>
-<a href="https://www.powershellgallery.com/packages/Troubleshoot-WindowsUpdateAgentRegistration/1.0">Windows Troubleshooter Tool</a>
-<a href="https://gallery.technet.microsoft.com/scriptcenter/Troubleshooting-utility-3bcbefe6">Linux Troubleshooter Tool</a>
+<br><a href="https://docs.microsoft.com/en-us/azure/automation/troubleshoot/update-agent-issues">Windows Troubleshooting</a> 
+<br><a href="https://docs.microsoft.com/en-us/azure/automation/troubleshoot/update-agent-issues-linux">Linux Troubleshooting</a> 
+<br><a href="https://docs.microsoft.com/en-us/azure/automation/troubleshoot/hybrid-runbook-worker">Troubleshoot Hybrid Runbook Worker</a>
+<br><a href="https://www.powershellgallery.com/packages/Troubleshoot-WindowsUpdateAgentRegistration/1.0">Windows Troubleshooter Tool</a>
+<br><a href="https://gallery.technet.microsoft.com/scriptcenter/Troubleshooting-utility-3bcbefe6">Linux Troubleshooter Tool</a>
