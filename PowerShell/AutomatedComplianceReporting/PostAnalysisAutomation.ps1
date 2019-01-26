@@ -14,14 +14,14 @@ damages for loss of business profits, business interruption, loss of business in
 use of or inability to use the sample scripts or documentation, even if Microsoft has been advised of the possibility of such damages.
 #>
 
-$subscriptionId = "9c29eddd-8897-46b5-b8ca-503e7ba5b463"
-$rG = "sbk-oms"
-$workspaceName = "sbk-log-analytics-49950"
+$subscriptionId = "{Azure Subscription Id}"
+$rG = "{Resource Group Name}"
+$workspaceName = "{Log Analytics Workspace Name}"
 $bearer = Get-AzureRmCachedAccessToken
 $header = @{"Authorization"="Bearer $bearer";"Content-Type"="application/json";"Prefer"="response-v1=true"}
 $apiCall = "https://management.azure.com/subscriptions/"+$subscriptionId+"/resourceGroups/"+$rG+"/providers/Microsoft.OperationalInsights/workspaces/"+$workspaceName+"/api/query?api-version=2017-01-01-preview"
 $body = @"
-    {"query": "UpdateRunProgress | where InstallationStatus == 'Succeeded' | where TimeGenerated > now(-30d) | project Computer , TimeGenerated , SourceComputerId , InstallationStatus , Product , Title , KBID ,  UpdateId , ErrorResult , UpdateRunName | take 100 | sort by Computer asc"}
+    {"query": "UpdateRunProgress | where InstallationStatus == 'Succeeded' | where TimeGenerated > now(-30d) | project Computer , TimeGenerated , SourceComputerId , InstallationStatus , Product , Title , KBID ,  UpdateId , ErrorResult , UpdateRunName | sort by Computer asc"}
 "@
 
 $response = Invoke-WebRequest -Uri $apiCall -Headers $header -Method Post -Body $body
