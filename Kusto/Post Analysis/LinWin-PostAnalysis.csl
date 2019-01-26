@@ -21,8 +21,9 @@
 // Grabs patch details for patch group and builds a post analysis report for regulatory compliance.
 //-----------------------------------------------------------------------------------
 
+let group1 = dynamic (['hostname1','hostname2','hostname3','hostname4','hostname5','hostname6','hostname7','hostname8']);
 UpdateRunProgress
-| where UpdateRunName == "Name of patch group"
+| where UpdateRunName == "group1"
 | where InstallationStatus == 'Succeeded'
 | where TimeGenerated > now(-60d)
 | project Computer
