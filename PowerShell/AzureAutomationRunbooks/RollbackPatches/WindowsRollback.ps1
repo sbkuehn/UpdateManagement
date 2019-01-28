@@ -25,8 +25,7 @@ param(
 [string]$KB'
 )
 
-#Specify the Azure Automation connection. This seems like an old ASM command, but it is accurate.
-#
+#Specify the Azure Automation connection. 
 $RunAsConnection = Get-AutomationConnection -Name AzureRunAsConnection
 Connect-AzureRmAccount -CertificateThumbprint $RunAsConnection.CertificateThumbprint `
 -ApplicationId $RunAsConnection.ApplicationID -Tenant $RunAsConnection.TenantID -ServicePrincipal
