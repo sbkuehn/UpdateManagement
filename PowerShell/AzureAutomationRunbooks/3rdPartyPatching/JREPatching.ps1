@@ -43,7 +43,7 @@ $installTemp = "C:\Installers\Java\"
 $installCommand = "C:\Installers\Java\jre-8u202-windows-x64.exe /s" 
 $workspaceName = "{Log Analytics Workspace Name}"
 $rG = "{Resource Group Name}"
-$savedSearch = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName=="Java 8 Update 201" | distinct Computer'
+$savedSearch = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Java 8 Update 201 (64-bit)" | distinct Computer'
 
 #Azure Automation Runbook script.
 $query = Get-AzureRmOperationalInsightsSearchResults -ResourceGroupName $rG -WorkspaceName $workspaceName -query $savedsearch
