@@ -14,9 +14,6 @@
 <br><br>1) <u>Not Configured</u> - the GET call resolves to 404.
 <br>2) <u>Disconnected</u> - The GET call resolves to 200, but the lastSeen property value (related to ping time) is older than an hour ago.
 <br>3) <u>Ready</u> - The GET call resolves to 200 and the lastSeen property is less than an hour ago. 
-<br><br><b><u>Kusto Queries - Detailed Explanations</u>:</b>
-<br>1) CVE Numbers are only listed for Linux within the underlying database engine for Kusto, except not every Linux server patch contains a CVE Number.
-<br>2) For the pre and post analysis queries, TimeGenerated refers to when the patch applies. In order to ensure you grab data for the past month, the TimeGenerated needs to be in the initial part of the Kusto query.
 <br><br><u><b>General Information</u>:</b>
 <br>1) As of January 2019, patch groups are limited to 500 servers. If there are more than 500 servers, customers will need to divide into multiple groups.
 <br>2) If WSUS is involved with the deployment, Windows looks to WSUS as the control plane with excluded and included patches.
