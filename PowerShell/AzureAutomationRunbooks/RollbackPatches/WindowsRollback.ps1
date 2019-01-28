@@ -25,14 +25,17 @@ param(
 [string]$KB = '{KBs to Uninstall}'
 )
 
+#Specify the Azure Automation connection.
 $RunAsConnection = Get-AutomationConnection -Name AzureRunAsConnection
 Connect-AzureRmAccount -CertificateThumbprint $RunAsConnection.CertificateThumbprint `
 -ApplicationId $RunAsConnection.ApplicationID -Tenant $RunAsConnection.TenantID -ServicePrincipal
 Set-AzureRmContext -SubscriptionId $RunAsConnection.SubscriptionID
 
-#Variables to test automation runbook, either in the portal or via the AzureAutomationAuthoringToolkit.
+#Input parameters to test automation runbook, either in the portal or via the AzureAutomationAuthoringToolkit.
 $workspaceId = "{Log Analytics Workspace Id}"
 $KB = '{KB to Uninstall}'
+
+#Azure Automation Runbook script.
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer'
 $queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computers = $queryResults.Results | Select-Object -ExpandProperty Computer
