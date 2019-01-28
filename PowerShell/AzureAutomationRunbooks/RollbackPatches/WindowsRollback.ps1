@@ -18,14 +18,14 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 #Required parameters to run on a schedule.
 param(
 [Parameter(Mandatory=$true)]
-[string]$query = 'Heartbeat | where OSType == "Windows" | distinct Computer',
+[string]$query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer',
 [Parameter(Mandatory = $true)]
 [string]$workspaceId = "{Log Analytics Workspace Id}",
 [Parameter(Mandatory = $true)]
 [string]$KB = '{KBs to Uninstall}'
 )
 
-$RunAsConnection = Get-AutomationConnection -Name sbkhybrbwrk
+$RunAsConnection = Get-AutomationConnection -Name AzureRunAsConnection
 Connect-AzureRmAccount -CertificateThumbprint $RunAsConnection.CertificateThumbprint `
 -ApplicationId $RunAsConnection.ApplicationID -Tenant $RunAsConnection.TenantID -ServicePrincipal
 Set-AzureRmContext -SubscriptionId $RunAsConnection.SubscriptionID
@@ -33,7 +33,7 @@ Set-AzureRmContext -SubscriptionId $RunAsConnection.SubscriptionID
 #Variables to test automation runbook, either in the portal or via the AzureAutomationAuthoringToolkit.
 $workspaceId = "{Log Analytics Workspace Id}"
 $KB = '{KB to Uninstall}'
-$query = 'Heartbeat | where OSType == "Windows" | distinct Computer'
+$query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer'
 $queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computers = $queryResults.Results | Select-Object -ExpandProperty Computer
 foreach ($computer in $computers)
