@@ -34,9 +34,9 @@ Set-AzureRmContext -SubscriptionId $RunAsConnection.SubscriptionID
 #Required Parameters to test with AzureAutomationAuthoringToolkit.
 $workspaceId = "{Log Analytics Workspace Id}"
 $KB = '{KB to Uninstall}'
+$query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer'
 
 #Azure Automation Runbook script.
-$query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer'
 $queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computers = $queryResults.Results | Select-Object -ExpandProperty Computer
 foreach ($computer in $computers)
