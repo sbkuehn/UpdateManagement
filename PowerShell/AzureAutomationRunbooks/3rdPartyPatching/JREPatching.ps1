@@ -15,7 +15,7 @@ business information, or other pecuniary loss) arising out of the use of or inab
 documentation, even if Microsoft has been advised of the possibility of such damages.
 #>
 
-#Required parameters to run on a schedule.
+#Required parameters to run on a schedule or on-demand.
 param(
 [Parameter(Mandatory=$true)]
 [string]$savedSearch,
@@ -32,7 +32,7 @@ param(
 )
 
 #Specify the Azure Automation connection.
-$Conn = Get-AutomationConnection -Name sbkhybrbwrk
+$Conn = Get-AutomationConnection -Name AzureRunAsConnection
 Connect-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID `
 -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
 
