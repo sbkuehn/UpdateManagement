@@ -18,11 +18,11 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 #Required parameters to run on a schedule.
 param(
 [Parameter(Mandatory=$true)]
-[string]$query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer',
+[string]$query,
 [Parameter(Mandatory = $true)]
-[string]$workspaceId = "{Log Analytics Workspace Id}",
+[string]$workspaceId,
 [Parameter(Mandatory = $true)]
-[string]$KB = '{KBs to Uninstall}'
+[string]$KB'
 )
 
 #Specify the Azure Automation connection. This seems like an old ASM command, but it is accurate.
@@ -32,7 +32,7 @@ Connect-AzureRmAccount -CertificateThumbprint $RunAsConnection.CertificateThumbp
 -ApplicationId $RunAsConnection.ApplicationID -Tenant $RunAsConnection.TenantID -ServicePrincipal
 Set-AzureRmContext -SubscriptionId $RunAsConnection.SubscriptionID
 
-#Input parameters to test automation runbook, either in the portal or via the AzureAutomationAuthoringToolkit.
+#Required Parameters to test with AzureAutomationAuthoringToolkit.
 $workspaceId = "{Log Analytics Workspace Id}"
 $KB = '{KB to Uninstall}'
 
