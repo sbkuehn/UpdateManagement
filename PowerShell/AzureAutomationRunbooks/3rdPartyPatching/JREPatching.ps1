@@ -30,8 +30,7 @@ param(
 [string]$installCommand
 )
 
-#Specify the Azure Automation connection. This seems like an old ASM command, but it is accurate.
-#
+#Specify the Azure Automation connection.
 $Conn = Get-AutomationConnection -Name sbkhybrbwrk
 Connect-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID `
 -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
