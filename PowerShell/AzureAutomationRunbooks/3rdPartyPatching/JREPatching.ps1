@@ -41,8 +41,8 @@ $softwareName = "Java 8 Update 201"
 $installSource = "\\server\AppPatching\Java\"
 $installTemp = "C:\Installers\Java\"
 $installCommand = "C:\Installers\Java\jre-8u202-windows-x64.exe /s" 
-$workspaceName = "sbk-log-analytics-49950"
-$rG = "sbk-oms"
+$workspaceName = "{Log Analytics Workspace Name}"
+$rG = "{Resource Group Name}"
 $savedSearch = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName=="Java 8 Update 201" | distinct Computer'
 
 #Azure Automation Runbook script.
