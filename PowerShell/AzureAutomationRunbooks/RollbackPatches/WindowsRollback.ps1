@@ -22,7 +22,7 @@ param(
 [Parameter(Mandatory = $true)]
 [string]$workspaceId,
 [Parameter(Mandatory = $true)]
-[string]$KB'
+[string]$KB
 )
 
 #Specify the Azure Automation connection. 
