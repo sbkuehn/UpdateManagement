@@ -15,9 +15,17 @@ business information, or other pecuniary loss) arising out of the use of or inab
 documentation, even if Microsoft has been advised of the possibility of such damages.
 #>
 
-$subscriptionId = "{Azure Subscription Id}"
-$rG = "{Resource Group Name}"
-$workspaceName = "{Log Analytics Workspace Name}"
+#Required parameters.
+param(
+[Parameter(Mandatory=$true)]
+[string]$subscriptionId,
+[Parameter(Mandatory=$true)]
+[array]$rG,
+[Parameter(Mandatory=$true)]
+[string]$workspaceName
+)
+
+#Generate bearer token and use token + header for the API call. Ensure the header has more information to grab the records.
 $bearer = Get-AzureRmCachedAccessToken
 $header = @{"Authorization"="Bearer $bearer";"Content-Type"="application/json";"Prefer"="response-v1=true"}
 $apiCall = "https://management.azure.com/subscriptions/"+$subscriptionId+"/resourceGroups/"+$rG+"/providers/Microsoft.OperationalInsights/workspaces/"+$workspaceName+"/api/query?api-version=2017-01-01-preview"
@@ -25,6 +33,7 @@ $body = @"
     {"query": "Update | where TimeGenerated>ago(30d) and OSType!='Linux' and (Optional==false or Classification has 'Critical' or Classification has 'Security') and SourceComputerId in ((Heartbeat | where TimeGenerated>ago(30d) and OSType=~'Windows' and notempty(Computer) | summarize arg_max(TimeGenerated, Solutions) by SourceComputerId | where Solutions has 'updates' | distinct SourceComputerId)) | summarize hint.strategy=partitioned arg_max(TimeGenerated, *) by Computer, SourceComputerId, UpdateID | where UpdateState=~'Needed' and Approved!=false | project Computer , TimeGenerated , PublishedDate , KBID , Product , Title , UpdateState , Optional , RebootBehavior | sort by Computer asc , PublishedDate"}
 "@
 
+#Run the script, which extracts columns and rows as objects, then adds them to a data table, which can be extracted as a csv.
 $response = Invoke-WebRequest -Uri $apiCall -Headers $header -Method Post -Body $body
 $jsonResponses = $response.Content | ConvertFrom-Json 
 $ScriptBlock = .{
