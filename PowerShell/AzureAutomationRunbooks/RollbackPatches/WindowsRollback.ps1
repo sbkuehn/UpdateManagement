@@ -31,7 +31,7 @@ Connect-AzureRmAccount -CertificateThumbprint $RunAsConnection.CertificateThumbp
 -ApplicationId $RunAsConnection.ApplicationID -Tenant $RunAsConnection.TenantID -ServicePrincipal
 Set-AzureRmContext -SubscriptionId $RunAsConnection.SubscriptionID
 
-#Required Parameters to test with AzureAutomationAuthoringToolkit.
+#Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
 $workspaceId = "{Log Analytics Workspace Id}"
 $KB = '{KB to Uninstall}'
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer'
