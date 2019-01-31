@@ -15,7 +15,7 @@ business information, or other pecuniary loss) arising out of the use of or inab
 documentation, even if Microsoft has been advised of the possibility of such damages.
 #>
 
-#Required parameters
+#Required parameters.
 param(
 [Parameter(Mandatory=$true)]
 [string]$subscriptionId,
