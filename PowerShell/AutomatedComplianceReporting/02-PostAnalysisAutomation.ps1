@@ -50,5 +50,5 @@ $jsonResponse.tables.rows | ForEach {
     $tableObj.Rows.Add($_)
 }
 
-$tableObj | Export-Csv C:\users\skuehn\PostAnalysis.csv -NTI
+$tableObj | Export-Csv \\server\share\ComplianceReporting\PostAnalysis_2019-01-19.csv -NTI
 }
