@@ -14,10 +14,18 @@ any damages whatsoever (including, without limitation, damages for loss of busin
 business information, or other pecuniary loss) arising out of the use of or inability to use the sample scripts or 
 documentation, even if Microsoft has been advised of the possibility of such damages.
 #>
+#Required parameters
+param(
+[Parameter(Mandatory=$true)]
+[string]$subscriptionId,
+[Parameter(Mandatory=$true)]
+[array]$rG,
+[Parameter(Mandatory=$true)]
+[string]$workspaceName
+)
+#Call upon the bearer and header for the API call. Ensure the header has more information to grab the records correctly.
+#The body needs to be passed as follows in order to run a successful Kusto Query against the environment.
 
-$subscriptionId = "{Azure Subscription Id}"
-$rG = "{Resource Group Name}"
-$workspaceName = "{Log Analytics Workspace Name}"
 $bearer = Get-AzureRmCachedAccessToken
 $header = @{"Authorization"="Bearer $bearer";"Content-Type"="application/json";"Prefer"="response-v1=true"}
 $apiCall = "https://management.azure.com/subscriptions/"+$subscriptionId+"/resourceGroups/"+$rG+"/providers/Microsoft.OperationalInsights/workspaces/"+$workspaceName+"/api/query?api-version=2017-01-01-preview"
