@@ -17,8 +17,6 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 
 #Required parameters to run on a schedule or on-demand.
 param(
-[Parameter(Mandatory=$true)]
-[string]$softwareName,
 [Parameter(Mandatory = $true)]
 [string]$sourcePath,
 [Parameter(Mandatory = $true)]
@@ -34,13 +32,13 @@ Connect-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID `
 Set-AzureRmContext -SubscriptionId $Conn.SubscriptionID
 
 #Required Parameters to test with AzureAutomationAuthoringToolkit.
-$softwareName = "Java 8 Update 201 (64-bit)"
-$sourcePath = '\\shanutils\Utils\AppPatching\Java\'
+$sourcePath = '\\server\share\AppPatching\Java\'
 $workspaceId = "511b3784-4652-45d3-a744-53a6dc023326"
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Java 8 Update 201 (64-bit)" | distinct Computer'
 $queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computername = $queryResults.Results | Select-Object -ExpandProperty Computer
 
+#Run the installation script.
 ForEach($computer in $computername){
     Copy-Item -Path $sourcePath -Destination \\$computer\c$\ -Recurse -Force
     $session = New-PSSession -ComputerName $computer
