@@ -50,4 +50,5 @@ ForEach($computer in $computername){
             $process.Start()
     }
     Enter-PSSession -Session $session
+    Exit-PSSession
 }
