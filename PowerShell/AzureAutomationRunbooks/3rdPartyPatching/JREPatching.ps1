@@ -1,6 +1,6 @@
 <#
 Created 
-2019.01.25
+2019.02.01
 Shannon Kuehn
 Last Updated
 
@@ -18,45 +18,38 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 #Required parameters to run on a schedule or on-demand.
 param(
 [Parameter(Mandatory=$true)]
-[string]$savedSearch,
-[Parameter(Mandatory = $true)]
-[string]$workspaceName,
-[Parameter(Mandatory = $true)]
 [string]$softwareName,
 [Parameter(Mandatory = $true)]
-[string]$installSource,
+[string]$sourcePath,
 [Parameter(Mandatory = $true)]
-[string]$installTemp,
+[string]$workspaceId,
 [Parameter(Mandatory = $true)]
-[string]$installCommand
+[string]$query
 )
 
 #Specify the Azure Automation connection.
 $Conn = Get-AutomationConnection -Name AzureRunAsConnection
 Connect-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID `
 -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
+Set-AzureRmContext -SubscriptionId $Conn.SubscriptionID
 
 #Required Parameters to test with AzureAutomationAuthoringToolkit.
-$softwareName = "Java 8 Update 201"
-$installSource = "\\server\AppPatching\Java\"
-$installTemp = "C:\Installers\Java\"
-$installCommand = "C:\Installers\Java\jre-8u202-windows-x64.exe /s" 
-$workspaceName = "{Log Analytics Workspace Name}"
-$rG = "{Resource Group Name}"
-$savedSearch = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Java 8 Update 201 (64-bit)" | distinct Computer'
+$softwareName = "Java 8 Update 201 (64-bit)"
+$sourcePath = '\\shanutils\Utils\AppPatching\Java\'
+$workspaceId = "511b3784-4652-45d3-a744-53a6dc023326"
+$query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Java 8 Update 201 (64-bit)" | distinct Computer'
+$queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
+$computername = $queryResults.Results | Select-Object -ExpandProperty Computer
 
-#Azure Automation Runbook script.
-$query = Get-AzureRmOperationalInsightsSearchResults -ResourceGroupName $rG -WorkspaceName $workspaceName -query $savedsearch
-$query.Value | ConvertFrom-Json | Select Computer
-$computers = $query.Value | ConvertFrom-Json | Select Computer
-foreach ($computer in $computers)
-{
-
-   if ($computer -like $env:COMPUTERNAME)
-   { 
-        Copy-Item -Path $installsource -Destination $installtemp -Recurse -Force
-        Invoke-Expression $installcommand
-        Remove-Item $installtemp -Recurse -Force
-        break
-   }
+ForEach($computer in $computername){
+    Copy-Item -Path $sourcePath -Destination \\$computer\c$\ -Recurse -Force
+    $session = New-PSSession -ComputerName $computer
+        Invoke-Command -Session $session -ScriptBlock {
+            $process = New-Object System.Diagnostics.Process  
+            $process.StartInfo.FileName = "C:\java\jre-8u202-windows-x64.exe"
+            $process.StartInfo.Arguments = " /s"
+            $process.StartInfo.Verb = "RunAs"
+            $process.Start()
+    }
+    Enter-PSSession -Session $session
 }
