@@ -31,7 +31,7 @@ Connect-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID `
 -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
 Set-AzureRmContext -SubscriptionId $Conn.SubscriptionID
 
-#Required Parameters to test with AzureAutomationAuthoringToolkit.
+#Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
 $softwarename = "7-Zip 18.01"
 $sourcePath = '\\server\share\AppPatching\7-Zip\'
 $workspaceId = "511b3784-4652-45d3-a744-53a6dc023326"
