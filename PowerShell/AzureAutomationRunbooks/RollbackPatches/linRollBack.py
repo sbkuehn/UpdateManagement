@@ -61,5 +61,4 @@ azure_credential,
 list_of_servers = ["host1", "host2", "host3", "host4", "host5"]
 
 for server in list_of_servers:
-  import subprocess
   subprocess.call(['yum remove package_name'], shell=True)
