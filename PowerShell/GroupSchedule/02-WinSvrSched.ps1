@@ -2,7 +2,9 @@
 Created 
 2018.11.26 
 Shannon Kuehn
+
 Last Updated
+2019.07.08
 
 © 2018 Microsoft Corporation. 
 All rights reserved. Sample scripts/code provided herein are not supported under any Microsoft standard support program 
@@ -16,27 +18,27 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 #>
 
 function SetSchedule {
-param(
-[Parameter(Mandatory=$true)]
-[string]$startTime,
-[Parameter(Mandatory=$true)]
-[array]$group,
-[Parameter(Mandatory=$true)]
-[string]$resourceGroup,
-[Parameter(Mandatory=$true)]
-[string]$automationAccount,
-[Parameter(Mandatory=$true)]
-[string]$DaysofMonth,
-[Parameter(Mandatory=$true)]
-[int]$durationHours,
-[Parameter(Mandatory=$false)]
-[int]$monthInterval,
-[Parameter(Mandatory=$true)]
-[string]$scheduleName
+    param(
+    [Parameter(Mandatory=$true)]
+    [string]$startTime,
+    [Parameter(Mandatory=$true)]
+    [array]$group,
+    [Parameter(Mandatory=$true)]
+    [string]$resourceGroup,
+    [Parameter(Mandatory=$true)]
+    [string]$automationAccount,
+    [Parameter(Mandatory=$true)]
+    [string]$DaysofMonth,
+    [Parameter(Mandatory=$true)]
+    [int]$durationHours,
+    [Parameter(Mandatory=$false)]
+    [int]$monthInterval,
+    [Parameter(Mandatory=$true)]
+    [string]$scheduleName
 )
  
 $duration = New-TimeSpan -Hours $durationHours
-$schedule = New-AzureRmAutomationSchedule -ResourceGroupName $resourceGroup `
+$schedule = New-AzAutomationSchedule -ResourceGroupName $resourceGroup `
                                                       -AutomationAccountName $automationAccount `
                                                       -Name $scheduleName `
                                                       -StartTime $startTime `
@@ -44,7 +46,7 @@ $schedule = New-AzureRmAutomationSchedule -ResourceGroupName $resourceGroup `
                                                       -MonthInterval $monthInterval `
                                                       -ForUpdateConfiguration
  
-    New-AzureRmAutomationSoftwareUpdateConfiguration -ResourceGroupName $resourceGroup `
+    New-AzAutomationSoftwareUpdateConfiguration -ResourceGroupName $resourceGroup `
                                                      -AutomationAccountName $automationAccount `
                                                      -Schedule $schedule `
                                                      -Windows `
