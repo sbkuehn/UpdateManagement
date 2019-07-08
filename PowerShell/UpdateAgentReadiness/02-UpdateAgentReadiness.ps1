@@ -15,9 +15,9 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 #>
 
 # Fill in local path, Azure subscription ID, resource group, and automation account.
-$path = "{local file path}"
-$subId = "{subscription ID}"
-$rg = "{resource group}"
+$path = "Local or server file path goes here"
+$subId = "Azure subscription ID goes here"
+$rg = "Resource Group name goes here"
 $automationAccount = "{automation account}"
 $bearer = Get-AzureRmCachedAccessToken
 $header = @{"Authorization"="Bearer $bearer"}
