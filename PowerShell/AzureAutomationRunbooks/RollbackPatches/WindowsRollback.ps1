@@ -2,7 +2,9 @@
 Created 
 2019.01.25
 Shannon Kuehn
+
 Last Updated
+2019.07.08
 
 © 2019 Microsoft Corporation. 
 All rights reserved. Sample scripts/code provided herein are not supported under any Microsoft standard support program 
@@ -17,27 +19,27 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 
 #Required parameters to run on a schedule or on-demand.
 param(
-[Parameter(Mandatory=$true)]
-[string]$query,
-[Parameter(Mandatory = $true)]
-[string]$workspaceId,
-[Parameter(Mandatory = $true)]
-[string]$KB
+    [Parameter(Mandatory=$true)]
+    [string]$query,
+    [Parameter(Mandatory = $true)]
+    [string]$workspaceId,
+    [Parameter(Mandatory = $true)]
+    [string]$KB
 )
 
 #Specify the Azure Automation connection. 
 $RunAsConnection = Get-AutomationConnection -Name AzureRunAsConnection
-Connect-AzureRmAccount -CertificateThumbprint $RunAsConnection.CertificateThumbprint `
+Connect-AzAccount -CertificateThumbprint $RunAsConnection.CertificateThumbprint `
 -ApplicationId $RunAsConnection.ApplicationID -Tenant $RunAsConnection.TenantID -ServicePrincipal
-Set-AzureRmContext -SubscriptionId $RunAsConnection.SubscriptionID
+Set-AzContext -SubscriptionId $RunAsConnection.SubscriptionID
 
 #Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
-$workspaceId = "{Log Analytics Workspace Id}"
-$KB = '{KB to Uninstall}'
+$workspaceId = "Log Analytics workspace ID goes here"
+$KB = 'List KB to uninstall with just numbers, no KB in front'
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer'
 
 #Azure Automation Runbook script.
-$queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
+$queryResults = Invoke-AzOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computers = $queryResults.Results | Select-Object -ExpandProperty Computer
 foreach ($computer in $computers)
     {
