@@ -2,7 +2,10 @@
 Created 
 2018.11.26 
 Shannon Kuehn
+
 Last Updated
+2019.07.08
+
 © 2018 Microsoft Corporation. 
 All rights reserved. Sample scripts/code provided herein are not supported under any Microsoft standard support program 
 or service. The sample scripts/code are provided AS IS without warranty of any kind. Microsoft disclaims all implied 
@@ -14,10 +17,11 @@ business information, or other pecuniary loss) arising out of the use of or inab
 documentation, even if Microsoft has been advised of the possibility of such damages.
 #>
 
+$workspaceId = "Log Analytics workspace ID goes here"
 $scriptBlock = .{
 $serverinfo = Get-Content -Path "C:\temp\servergrouping.csv" | ConvertFrom-Csv
 $query = "Heartbeat | summarize arg_max(TimeGenerated, *) by SourceComputerId | top 500000 by Computer asc"
-$queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId "{log analytics workspace Id}" -Query $query
+$queryResults = Invoke-AzOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $queryResults.Results
 $servers = $queryResults.Results | Select-Object -ExpandProperty Computer
 }
