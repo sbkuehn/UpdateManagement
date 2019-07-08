@@ -33,7 +33,7 @@ Set-AzContext -SubscriptionId $Conn.SubscriptionID
 
 #Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
 $sourcePath = '\\server\share\AppPatching\Java\'
-$workspaceId = "511b3784-4652-45d3-a744-53a6dc023326"
+$workspaceId = "Log Analytics workspace goes here"
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Java 8 Update 201 (64-bit)" | distinct Computer'
 $queryResults = Invoke-AzOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computername = $queryResults.Results | Select-Object -ExpandProperty Computer
