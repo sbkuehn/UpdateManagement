@@ -16,26 +16,26 @@ documentation, even if Microsoft has been advised of the possibility of such dam
 #>
 
 #Required parameters to run on a schedule or on-demand.
-param(
-[Parameter(Mandatory = $true)]
-[string]$sourcePath,
-[Parameter(Mandatory = $true)]
-[string]$workspaceId,
-[Parameter(Mandatory = $true)]
-[string]$query
+    param(
+    [Parameter(Mandatory = $true)]
+    [string]$sourcePath,
+    [Parameter(Mandatory = $true)]
+    [string]$workspaceId,
+    [Parameter(Mandatory = $true)]
+    [string]$query
 )
 
 #Specify the Azure Automation connection.
 $Conn = Get-AutomationConnection -Name AzureRunAsConnection
-Connect-AzureRmAccount -ServicePrincipal -Tenant $Conn.TenantID `
+Connect-AzAccount -ServicePrincipal -Tenant $Conn.TenantID `
 -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
-Set-AzureRmContext -SubscriptionId $Conn.SubscriptionID
+Set-AzContext -SubscriptionId $Conn.SubscriptionID
 
 #Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
 $sourcePath = '\\server\share\AppPatching\Java\'
 $workspaceId = "511b3784-4652-45d3-a744-53a6dc023326"
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Java 8 Update 201 (64-bit)" | distinct Computer'
-$queryResults = Invoke-AzureRmOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
+$queryResults = Invoke-AzOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computername = $queryResults.Results | Select-Object -ExpandProperty Computer
 
 #Run the installation script.
