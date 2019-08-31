@@ -2,7 +2,9 @@
 Created 
 2019.01.25
 Shannon Kuehn
+
 Last Updated
+2019.08.30
 
 © 2019 Microsoft Corporation. 
 All rights reserved. Sample scripts/code provided herein are not supported under any Microsoft standard support program 
@@ -27,7 +29,7 @@ param(
 
 #Generate bearer token and use token + header for the API call. Ensure the header has more information to grab the records 
 #correctly. The body needs to be passed as shown below in order to run a successful Kusto Query against the environment.
-$bearer = Get-AzureRmCachedAccessToken
+$bearer = Get-AzCachedAccessToken
 $header = @{"Authorization"="Bearer $bearer";"Content-Type"="application/json";"Prefer"="response-v1=true"}
 $apiCall = "https://management.azure.com/subscriptions/"+$subscriptionId+"/resourceGroups/"+$rG+"/providers/Microsoft.OperationalInsights/workspaces/"+$workspaceName+"/api/query?api-version=2017-01-01-preview"
 $body = @"
