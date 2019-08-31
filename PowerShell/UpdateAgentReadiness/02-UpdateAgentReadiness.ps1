@@ -5,6 +5,7 @@ Shannon Kuehn
 
 Last Updated
 2019.07.08
+2019.08.30
 
 © 2018 Microsoft Corporation. 
 All rights reserved. Sample scripts/code provided herein are not supported under any Microsoft standard support program 
@@ -22,7 +23,7 @@ $path = "Local or server file path goes here"
 $subId = "Azure subscription ID goes here"
 $rg = "Resource Group name goes here"
 $automationAccount = "{automation account}"
-$bearer = Get-AzureRmCachedAccessToken
+$bearer = Get-AzCachedAccessToken
 $header = @{"Authorization"="Bearer $bearer"}
 $hybridWorkerGroups = Get-AzureRmAutomationHybridWorkerGroup -ResourceGroupName $rg -AutomationAccountName $automationAccount
 $csv = "MachineName,State,LastSeenTime`r`n"
