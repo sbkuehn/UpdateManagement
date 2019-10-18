@@ -25,7 +25,7 @@ $rg = "Resource Group name goes here"
 $automationAccount = "{automation account}"
 $bearer = Get-AzCachedAccessToken
 $header = @{"Authorization"="Bearer $bearer"}
-$hybridWorkerGroups = Get-AzureRmAutomationHybridWorkerGroup -ResourceGroupName $rg -AutomationAccountName $automationAccount
+$hybridWorkerGroups = Get-AzAutomationHybridWorkerGroup -ResourceGroupName $rg -AutomationAccountName $automationAccount
 $csv = "MachineName,State,LastSeenTime`r`n"
 $file = New-Object -ComObject Scripting.FileSystemObject
 $csvFile = $file.CreateTextFile($path,$true)
