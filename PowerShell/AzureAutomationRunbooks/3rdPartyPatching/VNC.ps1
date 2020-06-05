@@ -33,7 +33,7 @@ Connect-AzAccount -ServicePrincipal -Tenant $Conn.TenantID `
 -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
 Set-AzContext -SubscriptionId $Conn.SubscriptionID
 
-#Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
+#Used for AzureAutomationAuthoringToolkit. Comment out what is not necessary for Azure Automation script to run on a schedule
 $sourcePath = '\\server\share\AppPatching\RealVNC\'
 $workspaceId = 'Log Analytics workspace ID goes here'
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "VNC Server 6.0.0" | distinct Computer'
