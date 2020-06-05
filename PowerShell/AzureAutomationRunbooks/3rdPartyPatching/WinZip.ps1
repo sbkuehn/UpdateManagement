@@ -36,7 +36,7 @@ Set-AzContext -SubscriptionId $Conn.SubscriptionID
 #Used for Azure Automation Authoring Toolkit. Comment out or remove what is not necessary for Azure Automation script to run on a 
 #schedule.
 $sourcePath = '\\server\share\AppPatching\WinZip\'
-$workspaceId = $workspaceId
+$workspaceId = 'Log Analytics workspace ID goes here'
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "WinZip 21.0" | distinct Computer'
 $queryResults = Invoke-AzOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computername = $queryResults.Results | Select-Object -ExpandProperty Computer
