@@ -36,7 +36,7 @@ Set-AzContext -SubscriptionId $Conn.SubscriptionID
 
 #Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
 $sourcePath = '\\server\share\AppPatching\Wireshark'
-$workspaceId = "Log Analytics workspace ID goes here"
+$workspaceId = $workspaceId
 $query = "ConfigurationData | where ConfigDataType == 'Software' | where SoftwareName == 'Wireshark 2.6.3 64-bit' | distinct Computer"
 $queryResults = Invoke-AzOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computername = $queryResults.Results | Select-Object -ExpandProperty Computer
