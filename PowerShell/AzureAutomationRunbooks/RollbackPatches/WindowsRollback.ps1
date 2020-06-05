@@ -34,7 +34,7 @@ Connect-AzAccount -CertificateThumbprint $RunAsConnection.CertificateThumbprint 
 Set-AzContext -SubscriptionId $RunAsConnection.SubscriptionID
 
 #Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
-$workspaceId = "Log Analytics workspace ID goes here"
+$workspaceId = $workspaceId
 $KB = 'List KB to uninstall with just numbers, no KB in front'
 $query = 'ConfigurationData | where ConfigDataType == "Software" | where SoftwareName == "Security Update for Windows Server 2012 R2 (KB3177186)" | project Computer | distinct Computer'
 
