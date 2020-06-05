@@ -33,7 +33,8 @@ Connect-AzAccount -ServicePrincipal -Tenant $Conn.TenantID `
 -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
 Set-AzContext -SubscriptionId $Conn.SubscriptionID
 
-#Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
+#Used for Azure Automation Authoring Toolkit. Comment out or remove what is not necessary for Azure Automation script to run on a 
+#schedule.
 $sourcePath = '\\server\share\AppPatching\7-Zip\'
 $workspaceId = 'Log Analytics workspace ID goes here'
 $query = "ConfigurationData | where ConfigDataType == 'Software' | where SoftwareName == '7-Zip 18.01' | distinct Computer"
