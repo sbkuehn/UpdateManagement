@@ -35,7 +35,7 @@ Set-AzContext -SubscriptionId $Conn.SubscriptionID
 
 #Required Parameters to test with AzureAutomationAuthoringToolkit. Comment out with # if running inside Azure on a schedule.
 $sourcePath = '\\server\share\AppPatching\7-Zip\'
-$workspaceId = $workspaceId
+$workspaceId = 'Log Analytics workspace ID goes here'
 $query = "ConfigurationData | where ConfigDataType == 'Software' | where SoftwareName == '7-Zip 18.01' | distinct Computer"
 $queryResults = Invoke-AzOperationalInsightsQuery -WorkspaceId $workspaceId -Query $query
 $computername = $queryResults.Results | Select-Object -ExpandProperty Computer
