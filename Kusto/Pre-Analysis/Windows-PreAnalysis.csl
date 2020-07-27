@@ -31,7 +31,7 @@ Update
 | distinct SourceComputerId))
 | summarize hint.strategy=partitioned arg_max(TimeGenerated, *) by Computer, SourceComputerId, UpdateID
 | where UpdateState=~"Needed" and Approved!=false
-| project Computer
+| distinct Computer
 , TimeGenerated
 , PublishedDate
 , KBID
