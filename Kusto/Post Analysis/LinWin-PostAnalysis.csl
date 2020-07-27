@@ -26,7 +26,7 @@ UpdateRunProgress
 | where UpdateRunName == "group1"
 | where InstallationStatus == 'Succeeded'
 | where TimeGenerated > now(-60d)
-| project Computer
+| distinct Computer
 , TimeGenerated 
 , SourceComputerId
 , InstallationStatus
