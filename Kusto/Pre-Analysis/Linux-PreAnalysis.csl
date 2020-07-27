@@ -32,7 +32,7 @@ Update
 | summarize hint.strategy=partitioned arg_max(TimeGenerated, *) by Computer, SourceComputerId, Product, ProductArch
 | where UpdateState=~"Needed"
 | where Classification=~"Critical Updates"
-| project Computer
+| distinct Computer
 , TimeGenerated
 , Product
 , Classification
